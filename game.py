@@ -9,7 +9,7 @@ class Board():
     def move(self, action, player):
         if (self.board[0][action] != 0):
             return 'Illegal'
-        for i in range(self.rows - 1, 0, -1):
+        for i in range(self.rows - 1, -1, -1):
             if (self.board[i][action] == 0):
                 self.board[i][action] = player
                 #changed_row = i
@@ -17,6 +17,14 @@ class Board():
                 
     
     def check_result(self, player):
+        # Check tie
+        filled_count = 0
+        for i in range(0, self.cols):
+            if self.board[0][i] != 0:
+                filled_count += 1
+        if filled_count == self.cols:
+            return 'Tie'
+
         # Check horizontal locations for win
         end = False
         for c in range(self.cols-3):

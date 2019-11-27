@@ -22,6 +22,7 @@ def update_q(sah, ret):
 
 def update_q_from_episode(episode):
     i = 0
+    #print('EPISODE LEN:', len(episode.state_action_hashes))
     for state_action in episode.state_action_hashes:
         weight = 0.0
         if (episode.result == 'Win'):
@@ -50,10 +51,11 @@ def pick_random(probs):
     print('ERROR PICK RANDOM')
     return -1 # error
 
-def pick_best_action(board):
+def pick_best_action(board, illegal_count):
     best_column = 0
     best_weight = 0
     leftover = ((1.0 - SPLIT) / (board.cols - 1))
+    #probs = []
     for i in range(0, board.cols):
         sah = state_action.get_hash_from_board(board, i)
         weight = get_random_weight()
@@ -64,6 +66,11 @@ def pick_best_action(board):
             best_column = i
             best_weight = weight
         
+        #probs.append((i, weight))
+    
+    # probs = sorted(probs, key=lambda tup: tup[1], reverse=True)
+    # return probs[illegal_count][0]
+    
     probs = []
     for i in range(0, board.cols):
         if (i == best_column):
