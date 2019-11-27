@@ -1,6 +1,7 @@
 import random
 import math
 import state_action
+import pickle
 
 WIN_WEIGHT = 1.0
 TIE_WEIGHT = 0.0
@@ -70,7 +71,7 @@ def pick_best_action(board, illegal_count):
     
     # probs = sorted(probs, key=lambda tup: tup[1], reverse=True)
     # return probs[illegal_count][0]
-    
+
     probs = []
     for i in range(0, board.cols):
         if (i == best_column):
@@ -79,3 +80,14 @@ def pick_best_action(board, illegal_count):
             probs.append((i, leftover))
     
     return pick_random(probs)
+
+def save_q(filename):
+    with open(filename + '.pkl', 'wb') as f:
+        pickle.dump((Q, Q_Count), f, pickle.HIGHEST_PROTOCOL)
+
+def load_q(filename):
+    with open(filename + '.pkl', 'rb') as f:
+        obj = pickle.load(f)
+        global Q, Q_Count
+        Q = obj[0]
+        Q_Count = obj[1]

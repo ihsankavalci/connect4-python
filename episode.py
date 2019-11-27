@@ -57,6 +57,7 @@ def generate_episode():
 
 if __name__ == "__main__":
     win_count = 0
+    q.load_q('Q')
     for i in range(0, 1000000):
         episode = generate_episode()
         if (episode.result == 'Win'):
@@ -65,5 +66,6 @@ if __name__ == "__main__":
         q.update_q_from_episode(episode)
         if (i >= 1000 and i % 1000 == 0):
             print(i, 'Win Rate: %', round((win_count / i) * 100, 1), '    StateAction Pairs: ', len(q.Q))
+            q.save_q('Q')
 
 
