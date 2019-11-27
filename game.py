@@ -1,5 +1,8 @@
 import numpy as np
+import pygame
 
+ROW_COUNT = 6
+COLUMN_COUNT = 7
 class Board():
     def __init__(self):
         self.rows = 6
@@ -58,3 +61,39 @@ class Board():
         
         else:
             return 'Intermediate'
+
+class Visual():
+    BLUE = (0,0,255)
+    BLACK = (0,0,0)
+    RED = (255,0,0)
+    YELLOW = (255,255,0) 
+    SQUARESIZE = 100
+    width = COLUMN_COUNT * SQUARESIZE
+    height = (ROW_COUNT+1) * SQUARESIZE
+
+    def draw_board(self, board):
+        for c in range(COLUMN_COUNT):
+            for r in range(ROW_COUNT):
+                pygame.draw.rect(self.screen, self.BLUE, (c*self.SQUARESIZE, r*self.SQUARESIZE+self.SQUARESIZE, self.SQUARESIZE, self.SQUARESIZE))
+                pygame.draw.circle(self.screen, self.BLACK, (int(c*self.SQUARESIZE+self.SQUARESIZE/2), int(r*self.SQUARESIZE+self.SQUARESIZE+self.SQUARESIZE/2)), self.RADIUS)
+        
+        for c in range(COLUMN_COUNT):
+            for r in range(ROW_COUNT):		
+                if board[r][c] == 1:
+                    pygame.draw.circle(self.screen, self.RED, (int(c*self.SQUARESIZE+self.SQUARESIZE/2), self.height-int((ROW_COUNT-1-r)*self.SQUARESIZE+self.SQUARESIZE/2)), self.RADIUS)
+                elif board[r][c] == 2: 
+                    pygame.draw.circle(self.screen, self.YELLOW, (int(c*self.SQUARESIZE+self.SQUARESIZE/2), self.height-int((ROW_COUNT-1-r)*self.SQUARESIZE+self.SQUARESIZE/2)), self.RADIUS)
+        pygame.display.update()
+
+    def __init__(self):
+        pygame.init()
+        
+
+        size = (self.width, self.height)
+        self.RADIUS = int(self.SQUARESIZE/2 - 5)
+        self.screen = pygame.display.set_mode(size)
+        #draw_board(b.board)
+        #pygame.display.update()
+        #myfont = pygame.font.SysFont("monospace", 75)
+
+    

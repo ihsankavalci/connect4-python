@@ -52,6 +52,8 @@ def pick_random(probs):
     print('ERROR PICK RANDOM')
     return -1 # error
 
+
+
 def pick_best_action(board, illegal_count):
     best_column = 0
     best_weight = 0
@@ -80,6 +82,17 @@ def pick_best_action(board, illegal_count):
             probs.append((i, leftover))
     
     return pick_random(probs)
+
+def play_best(b, p):
+    a = pick_best_action(b, 0)
+    game_status = b.move(a, p)
+
+    if game_status == 'Illegal':
+        illegal_count = 1
+        while game_status == 'Illegal':
+            a = pick_best_action(b, illegal_count)
+            game_status = b.move(a, p)
+    return game_status, a
 
 def save_q(filename):
     with open(filename + '.pkl', 'wb') as f:
