@@ -5,6 +5,8 @@ import state_action
 import random
 import q
 
+PLAY_RANDOM = True
+
 class Episode:
     def __init__(self):
         self.state_action_hashes = []
@@ -40,13 +42,23 @@ def generate_episode():
             e.result = game_status
             return e
         
-        p2_action = pick_random_action() 
-        game_status = b.move(p2_action, 2)
+        if PLAY_RANDOM:
+            p2_action = pick_random_action() 
+            game_status = b.move(p2_action, 2)
 
-        if game_status == 'Illegal':
-            while game_status == 'Illegal':
-                p2_action = pick_random_action()
-                game_status = b.move(p2_action, 2)
+            if game_status == 'Illegal':
+                while game_status == 'Illegal':
+                    p2_action = pick_random_action()
+                    game_status = b.move(p2_action, 2)
+        else:
+            p2_action = q.pick_best_action(b, 0)
+            game_status = b.move(p2_action, 2)
+
+            if game_status == 'Illegal':
+                illegal_count = 1
+                while game_status == 'Illegal':
+                    p2_action = q.pick_best_action(b, illegal_count)
+                    game_status = b.move(p2_action, 2)
 
         move_count += 1
         if (game_status == 'Win' or game_status == 'Tie' or game_status == 'Loss'):
