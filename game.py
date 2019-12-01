@@ -17,7 +17,6 @@ class Board():
                 self.board[i][action] = player
                 #changed_row = i
                 return self.check_result(player)
-                
     
     def check_result(self, player):
         # Check tie

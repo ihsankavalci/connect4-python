@@ -3,7 +3,7 @@ import game
 import math
 import sys
 import q
-game_over = False
+
 v = game.Visual()
 b = game.Board()
 v.draw_board(b.board)
@@ -11,7 +11,6 @@ turn = 1
 q.load_q('Q')
 game_status = 'Intermediate'
 while True:
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -33,7 +32,7 @@ while True:
                 turn = 1
                 print(game_status)
         pygame.display.update()
-        
+
     if game_status == 'Win' or game_status == 'Tie' or game_status == 'Loss':
         input()
     if turn == 1:

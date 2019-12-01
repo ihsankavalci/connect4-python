@@ -12,14 +12,20 @@ SPLIT = .99
 Q = {}
 Q_Count = {}
 
+q_found_count = 0
+q_notfound_count = 0
+
 def update_q(sah, ret):
+    global q_found_count, q_notfound_count
     #sah = state_action.get_hash() # state action hash
     if Q.get(sah):
         Q[sah] = (Q_Count[sah] * Q[sah] + ret)/(Q_Count[sah] + 1)
         Q_Count[sah] = Q_Count[sah]+1
+        q_found_count += 1
     else:
         Q[sah] = ret
         Q_Count[sah] = 1
+        q_notfound_count += 1
 
 def update_q_from_episode(episode):
     i = 0
