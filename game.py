@@ -17,7 +17,21 @@ class Board():
                 self.board[i][action] = player
                 #changed_row = i
                 return self.check_result(player)
-    
+
+    def convert_board(self):
+        new_board = verts = [[] for x in range(self.rows)]
+        for i in range(0, self.rows):
+            for j in range(0, self.cols):
+                if self.board[i][j] == 0:
+                    new_board[self.rows - i - 1].append(' ')
+                if self.board[i][j] == 1:
+                    new_board[self.rows - i - 1].append('x') # q
+                if self.board[i][j] == 2:
+                    new_board[self.rows - i - 1].append('o') # minmax
+        
+        return new_board
+
+
     def check_result(self, player):
         # Check tie
         filled_count = 0
@@ -84,9 +98,11 @@ class Visual():
                     pygame.draw.circle(self.screen, self.YELLOW, (int(c*self.SQUARESIZE+self.SQUARESIZE/2), self.height-int((ROW_COUNT-1-r)*self.SQUARESIZE+self.SQUARESIZE/2)), self.RADIUS)
         pygame.display.update()
 
+    def update_display(self):
+        pygame.display.update()
+
     def __init__(self):
         pygame.init()
-        
 
         size = (self.width, self.height)
         self.RADIUS = int(self.SQUARESIZE/2 - 5)
