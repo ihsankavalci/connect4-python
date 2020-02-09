@@ -94,7 +94,7 @@ if __name__ == "__main__":
         if (episode.result == 'Win'):
             win_count += 1
 
-        #episode.replay_episode()
+        episode.replay_episode()
         q.update_q_from_episode(episode)
         if (i >= print_interval and i % print_interval == 0):
             print(i, 'Win Rate: %', round((win_count / print_interval) * 100, 1), '    StateAction Pairs: ', len(q.Q))
@@ -102,7 +102,7 @@ if __name__ == "__main__":
             win_count = 0
             q.q_found_count = 0
             q.q_notfound_count = 0
-            #episode.replay_episode()
+            episode.replay_episode()
             if i % save_interval == 0:
                 q.save_q('Q')
                 print('Q Saved')
