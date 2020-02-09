@@ -8,8 +8,8 @@ Q-learning is a model-free reinforcement learning algorithm. The goal of Q-learn
 
 source: https://en.wikipedia.org/wiki/Q-learning
 
-
-
+![Image of QL Formula]
+(https://github.com/ihsankavalci/connect4-python/blob/master/formula.svg)
 
 
 In program we used min-max algorithm via internet to test our algorithm.
